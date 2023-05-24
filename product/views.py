@@ -9,7 +9,7 @@ from product import serializers
 @api_view(['GET'])
 def category_list_api_view(request):
     categories = Category.objects.all()
-    serializer = serializers.CategoryListSerializers(categories, many=True)
+    serializer = serializers.CategoryListSerializer(categories, many=True)
     return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 
@@ -20,14 +20,14 @@ def category_detail_api_view(request, id):
     except Category.DoesNotExist:
         return Response(data={'error': 'Category not found!'}, status=status.HTTP_404_NOT_FOUND)
 
-    serializer = serializers.CategoryDetailSerializers(category, many=False)
+    serializer = serializers.CategoryDetailSerializer(category, many=False)
     return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
 def product_list_api_view(request):
     products = Product.objects.all()
-    serializer = serializers.ProductListSerializers(products, many=True)
+    serializer = serializers.ProductListSerializer(products, many=True)
     return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 
@@ -37,14 +37,14 @@ def product_detail_api_view(request, id):
         product = Product.objects.get(id=id)
     except Product.DoesNotExist:
         return Response(data={'error': 'Product not found!'}, status=status.HTTP_404_NOT_FOUND)
-    serializer = serializers.ProductDetailSerializers(product, many=False)
+    serializer = serializers.ProductDetailSerializer(product, many=False)
     return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
 def review_list_api_view(request):
     reviews = Review.objects.all()
-    serializer = serializers.ReviewListSerializers(reviews, many=True)
+    serializer = serializers.ReviewListSerializer(reviews, many=True)
     return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 
@@ -54,5 +54,13 @@ def review_detail_api_view(request, id):
         review = Review.objects.get(id=id)
     except Review.DoesNotExist:
         return Response(data={'error': 'Review not found!'}, status=status.HTTP_404_NOT_FOUND)
-    serializer = serializers.ProductDetailSerializers(review, many=False)
+    serializer = serializers.ProductDetailSerializer(review, many=False)
+    return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def product_reviews_api_view(request):
+    product = Product.objects.all()
+    serializer = serializers.ProductReviewSerializer(product, many=True)
+
     return Response(data=serializer.data, status=status.HTTP_200_OK)
