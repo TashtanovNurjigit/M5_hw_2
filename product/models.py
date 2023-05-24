@@ -48,5 +48,5 @@ STARS_CHOICES = (
 
 class Review(models.Model):
     text = models.TextField()
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_reviews', null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_reviews')
     stars = models.IntegerField(default=5, choices=STARS_CHOICES)
